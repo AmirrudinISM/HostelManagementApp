@@ -19,7 +19,7 @@ class StudentController extends Controller
     public function write(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required',
+            'email' => 'required|email|unique:students',
             'password'=> 'required',
             'name'=> 'required',
             'nric'=> 'required',
@@ -32,6 +32,36 @@ class StudentController extends Controller
 
         $newStudent = Student::create($data);
 
-        return redirect()->route('student.index');
+        if ($newStudent) {
+            return redirect()->route('student.index');
+        } else {
+            return back()->with('error', 'Registration failed');
+        }
+
+    }
+
+    public function login(Request $request){
+        $data = $request->validate([
+            'email'=> 'required',
+            'password'=> 'required'
+            ]);
+
+        $student = Student::where('email','=', $data['email'])->first();
+        if ($student) {
+            //dd($student);
+            if ($data['password'] == $student->password) {
+                $request->session()->put('email', $student->email);
+                return redirect('/student_dashboard');
+            } else {
+                return back()->with('error', 'Password mismatch');
+            }
+        } else {
+            return back()->with('error', 'This email is not registered');
+        }
+    }
+
+    public function dashboard(Request $request)
+    {
+        return view('students.student_dashboard');
     }
 }
