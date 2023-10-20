@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Models\Student;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,7 @@ Route::post('/register',[StudentController::class, 'write'])->name('student.writ
 Route::post('/', [StudentController::class,'login'])->name('student.login');
 Route::get('/student_dashboard',[StudentController::class, 'dashboard']);
 Route::get('/logout',[StudentController::class, 'logout']);
+
+Route::get('/admin/',[AdminController::class, 'index'])->name('admin.login');
+Route::post('/admin', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/admin/admin_dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
