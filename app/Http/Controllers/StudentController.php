@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Session;
 
 class StudentController extends Controller
 {
@@ -63,5 +64,13 @@ class StudentController extends Controller
     public function dashboard(Request $request)
     {
         return view('students.student_dashboard');
+    }
+
+    public function logout(){
+        if(Session::has('email')){
+            Session::pull('email');
+            return redirect()->route('student.index');
+        }
+
     }
 }

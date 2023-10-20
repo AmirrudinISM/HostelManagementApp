@@ -6,5 +6,6 @@
 <body>
     <h1>Student Dashboard</h1>
     <p>{{ Session::get('email') }}</p>
+    <a href="/logout">Logout</a>
 </body>
 </html>

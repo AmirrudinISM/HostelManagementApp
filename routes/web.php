@@ -19,4 +19,5 @@ Route::get('/', [StudentController::class,'index'])->name('student.index');
 Route::get('/register', [StudentController::class,'register'])->name('student.register');
 Route::post('/register',[StudentController::class, 'write'])->name('student.write');
 Route::post('/', [StudentController::class,'login'])->name('student.login');
-Route::get('student_dashboard',[StudentController::class, 'dashboard']);
+Route::get('/student_dashboard',[StudentController::class, 'dashboard']);
+Route::get('/logout',[StudentController::class, 'logout']);
