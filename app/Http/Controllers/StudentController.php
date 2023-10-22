@@ -73,4 +73,10 @@ class StudentController extends Controller
         }
 
     }
+
+    public function hostelForm(){
+        return view('students.application_form');   
+    }
+
+    
 }

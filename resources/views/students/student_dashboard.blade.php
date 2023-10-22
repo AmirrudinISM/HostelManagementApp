@@ -6,6 +6,7 @@
 <body>
     <h1>Student Dashboard</h1>
     <p>{{ Session::get('email') }}</p>
+    <a href="/apply_hostel">Apply hostel</a>
     <a href="/logout">Logout</a>
 </body>
 </html>

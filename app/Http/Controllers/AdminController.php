@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Room;
 
 class AdminController extends Controller
 {
@@ -20,7 +21,7 @@ class AdminController extends Controller
         ]);
 
         $admin = Admin::where('email', '=', $data['email'])->first();
-        
+
         if ($admin) {
             if ($data['password'] == $admin->password) {
                 $request->session()->put('email', $admin->email);
@@ -36,5 +37,36 @@ class AdminController extends Controller
     public function dashboard(Request $request)
     {
         return view('admins.admin_dashboard');
+    }
+
+    public function viewRooms(){
+        $rooms = Room::all();
+
+
+
+        return view('admins.manage_rooms', ['rooms' => $rooms]);
+
+    }
+
+    public function createRoom(){
+        return view('admins.create_room');
+    }
+
+    public function write(Request $request)
+    {
+        $data = $request->validate([
+            'roomNumber' => 'required',
+            'capacity' => 'required',
+            'level' => 'required'
+        ]);
+
+        $room = Room::create($data);
+        if ($room) {
+            return redirect('/admin/manage_rooms');
+        }
+        else{
+            dd($room);
+        }
+
     }
 }
