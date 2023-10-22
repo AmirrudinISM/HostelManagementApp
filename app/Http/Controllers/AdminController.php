@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -68,5 +69,23 @@ class AdminController extends Controller
             dd($room);
         }
 
+    }
+
+    public function editRoom(Room $room){
+
+        //dd($room);
+        return view('admins.edit_room', ['room' => $room]);
+    }
+
+    public function updateRoom(Room $room,Request $request){
+        $data = $request->validate([
+            'roomNumber' => 'required',
+            'capacity' => 'required',
+            'level' => 'required'
+        ]);
+
+        $room->update($data);
+        //dd($room->roomNumber);
+        return redirect('/admin/manage_rooms');
     }
 }

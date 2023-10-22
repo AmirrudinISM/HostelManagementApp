@@ -10,6 +10,7 @@ class Room extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $primaryKey = 'roomNumber';
     protected $fillable = [
         'roomNumber',
         'level',

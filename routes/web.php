@@ -29,5 +29,7 @@ Route::get('/admin/',[AdminController::class, 'index'])->name('admin.login');
 Route::post('/admin', [AdminController::class, 'login'])->name('admin.login');
 Route::get('/admin/admin_dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/manage_rooms',[AdminController::class, 'viewRooms']);
+Route::get('/admin/manage_rooms/{room}/edit', [AdminController::class, 'editRoom'])->name('admin.editRoom');
 Route::get('/admin/create_room', [AdminController::class, 'createRoom'])->name('admin.createRoom');
 Route::post('/admin/create_room', [AdminController::class, 'write'])->name('admin.saveRoom');
+Route::put('/admin/manage_rooms/{room}/update', [AdminController::class, 'updateRoom'])->name('admin.updateRoom');

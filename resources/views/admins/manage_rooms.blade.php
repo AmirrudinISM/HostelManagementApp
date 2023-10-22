@@ -15,9 +15,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
+                    <th>Room Number</th>
+                    <th>Level</th>
+                    <th>Capacity</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,7 @@
                     <td>{{ $room->roomNumber }}</td>
                     <td>{{ $room->level }}</td>
                     <td>{{ $room->capacity }}</td>
+                    <td><a href="{{ route('admin.editRoom',['room'=> $room]) }}">Edit</a></td>
                 </tr>
                 @endforeach
             </tbody>
