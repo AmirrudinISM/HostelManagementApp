@@ -94,6 +94,7 @@
                     </div>
 
                     <div class="col-12">
+                        <a href="{{ route('student.index') }}">Cancel</a>
                         <button type="submit" class="btn btn-primary float-end">Register</button>
                     </div>
                 </form>

@@ -11,14 +11,19 @@
     <div class="d-flex justify-content-center my-5">
         <div class="card col-md-6">
             <div class="card-body">
-                <form class="row g-3" action="" method="post">
+                <form class="row g-3" action="{{ route('student.apply') }}" method="post">
                     @csrf
                     @method('post')
                     <h4 class="text-muted">Hostel Application</h4>
                     <div>
+                        @if(session()->has('error'))
+                            <p>{{session('error')}}</p>
+                        @endif
+                    </div>
+                    <div>
                         <label for="checkinDate" class="form-label">Check-in Date:</label>
                         <div>
-                            <input class="form-control" type="date" id="checkinDate" name="checkinDate"/>
+                            <input class="form-control" type="date" id="checkinDate" name="checkin_date"/>
                         </div>
                         <span class="text-danger">@error('checkinDate'){{$message}} @enderror</span>
                     </div><div>
@@ -28,11 +33,9 @@
                         </div>
                         <span class="text-danger">@error('intake'){{$message}} @enderror</span>
                     </div>
-
-
-
-
+                    <input type="hidden" name="student_id" value="{{  Session::get('student_id') }}" />
                     <div class="col-12">
+                        <a href="/student_dashboard">Cancel</a>
                         <button type="submit" class="btn btn-primary float-end">Apply</button>
                     </div>
                 </form>

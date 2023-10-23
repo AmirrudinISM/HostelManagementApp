@@ -37,6 +37,7 @@
                         <span class="text-danger">@error('level'){{$message}} @enderror</span>
                     </div>
                     <div class="col-12">
+                        <a href="{{route('admin.dashboard')}}" class="float-none">Cancel</a>
                         <button type="submit" class="btn btn-primary float-end">Create</button>
                     </div>
                 </form>

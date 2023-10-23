@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use DB;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        return view('admins.admin_dashboard');
+        $applications = Application::all();
+        return view('admins.admin_dashboard', ['applications' => $applications]);
     }
 
     public function viewRooms(){
@@ -87,5 +89,17 @@ class AdminController extends Controller
         $room->update($data);
         //dd($room->roomNumber);
         return redirect('/admin/manage_rooms');
+    }
+
+    public function deleteRoom(Room $room)
+    {
+        $room->delete();
+        //dd($room->roomNumber);
+        return redirect('/admin/manage_rooms');
+    }
+
+    public function getApplications(){
+        $applications = Application::all();
+        return view('admins.manage_applications', ['applications' => $applications]);
     }
 }

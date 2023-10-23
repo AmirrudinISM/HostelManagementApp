@@ -7,16 +7,12 @@
 </head>
 <body>
     <div class="container-md">
-        <header>
-
-        </header>
-        <h1>Student Dashboard</h1>
+        <h1>Manage Applications</h1>
         <p>{{ Session::get('email') }}</p>
-        <p>{{ Session::get('student_id') }}</p>
-        <br />
-        <a href="/apply_hostel">Apply hostel</a>
         <br />
         <a href="/logout">Logout</a>
+        <br />
+        <a href="/admin/manage_rooms">Manage Rooms</a>
 
         <table class="table">
             <thead>
@@ -35,13 +31,13 @@
                     <td>{{ $application->created_at }}</td>
                     <td>{{ $application->status }}</td>
                     <td>{{ $application->room }}</td>
-                    <td><button class="btn btn-danger" ></button></td>
-                    
+                    <td></td>
+
                 </tr>
-                @endforeach
+       ach
             </tbody>
         </table>
     </div>
-    
+
 </body>
 </html>

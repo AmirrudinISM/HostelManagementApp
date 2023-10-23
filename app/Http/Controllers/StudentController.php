@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Application;
 use Session;
 
 class StudentController extends Controller
@@ -51,6 +52,7 @@ class StudentController extends Controller
         if ($student) {
             //dd($student);
             if ($data['password'] == $student->password) {
+                $request->session()->put('student_id', $student->id);
                 $request->session()->put('email', $student->email);
                 return redirect('/student_dashboard');
             } else {
@@ -61,9 +63,9 @@ class StudentController extends Controller
         }
     }
 
-    public function dashboard(Request $request)
-    {
-        return view('students.student_dashboard');
+    public function dashboard(Request $request){
+        $applications = Application::where('student_id','=', Session::get('student_id'))->get();
+        return view('students.student_dashboard',['applications' => $applications]);
     }
 
     public function logout(){
@@ -75,8 +77,22 @@ class StudentController extends Controller
     }
 
     public function hostelForm(){
-        return view('students.application_form');   
+        return view('students.application_form');
     }
 
-    
+    public function apply(Request $request){
+        $data = $request->validate([
+            'checkin_date' => 'required',
+            'intake' => 'required',
+            'student_id' => 'required']
+            );
+        $application = Application::create($data);
+        if ($application) {
+            return redirect()->route('student.dashboard');
+        } else {
+            return back()->with('error', 'Application failed');
+        }
+    }
+
+
 }

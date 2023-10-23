@@ -6,11 +6,18 @@
     <title>Admin Dashboard</title>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
-    <p>{{ Session::get('email') }}</p>
-    <br />
-    <a href="/logout">Logout</a>
-    <br />
-    <a href="/admin/manage_rooms">Manage Rooms</a>
+    <div class="container col-md-8">
+        <h1>Admin Dashboard</h1>
+        <p>{{ Session::get('email') }}</p>
+        <br />
+        <a href="/logout">Logout</a>
+        <br />
+        <a href="/admin/manage_rooms">Manage Rooms</a>
+        <br />
+        <a href="/admin/manage_applications">Manage Applications</a>
+
+        
+    </div>
+    
 </body>
 </html>

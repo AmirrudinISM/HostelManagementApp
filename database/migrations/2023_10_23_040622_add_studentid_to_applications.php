@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('rooms', function (Blueprint $table) {
-           
-            $table->string('roomNumber')->unique()->change();
-            
+        Schema::table('applications', function (Blueprint $table) {
+            $table->unsignedBigInteger('student_id');
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('roomnumber', function (Blueprint $table) {
+        Schema::table('applications', function (Blueprint $table) {
             //
         });
     }

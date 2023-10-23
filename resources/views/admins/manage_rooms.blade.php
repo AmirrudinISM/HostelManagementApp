@@ -6,11 +6,13 @@
     <title>Manage Rooms</title>
 </head>
 <body>
-    <div class="container-md">
+    <div class="container col-md-8">
         <h1>Manage Rooms</h1>
 
 
         <a href="{{route('admin.createRoom')}}">Create Rooms</a>
+        <br />
+        <a href="{{route('admin.dashboard')}}">Home</a>
         <br />
         <table class="table">
             <thead>
@@ -27,7 +29,14 @@
                     <td>{{ $room->roomNumber }}</td>
                     <td>{{ $room->level }}</td>
                     <td>{{ $room->capacity }}</td>
-                    <td><a href="{{ route('admin.editRoom',['room'=> $room]) }}">Edit</a></td>
+                    <td>
+                        <a class="btn btn-outline-primary" href="{{ route('admin.editRoom',['room'=> $room]) }}">Edit</a>
+                        <form action="{{ route('admin.deleteRoom',['room' => $room]) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger" type="submit" value="Delete">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
