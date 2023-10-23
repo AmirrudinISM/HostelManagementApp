@@ -31,10 +31,9 @@
                     <td>{{ $application->created_at }}</td>
                     <td>{{ $application->status }}</td>
                     <td>{{ $application->room }}</td>
-                    <td></td>
-
+                    <td><a href="{{ route('admin.viewApplication', ['application' => $application]) }}">View</a></td>
                 </tr>
-       ach
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -36,3 +36,5 @@ Route::post('/admin/create_room', [AdminController::class, 'write'])->name('admi
 Route::put('/admin/manage_rooms/{room}/update', [AdminController::class, 'updateRoom'])->name('admin.updateRoom');
 Route::delete('/admin/manage_rooms/{room}/delete', [AdminController::class, 'deleteRoom'])->name('admin.deleteRoom');
 Route::get('/admin/manage_applications',[AdminController::class, 'getApplications'])->name('admin.manageApplications');
+Route::get('/admin/manage_applications/{application}', [AdminController::class, 'viewApplication'])->name('admin.viewApplication');
+Route::put('/admin/manage_applications/{application}/update', [AdminController::class, 'updateApplication'])->name('admin.updateApplication');

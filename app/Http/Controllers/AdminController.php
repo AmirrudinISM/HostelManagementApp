@@ -44,9 +44,6 @@ class AdminController extends Controller
 
     public function viewRooms(){
         $rooms = Room::all();
-
-
-
         return view('admins.manage_rooms', ['rooms' => $rooms]);
 
     }
@@ -102,4 +99,40 @@ class AdminController extends Controller
         $applications = Application::all();
         return view('admins.manage_applications', ['applications' => $applications]);
     }
+
+    public function viewApplication(Application $application){
+        //dd($application->id);
+
+        $queryResult = DB::table('students')
+            ->join('applications', 'applications.student_id', '=', 'students.id')
+            ->select(
+                'applications.id',
+                'students.name',
+                'students.nric',
+                'students.studentID',
+                'students.program',
+                'students.batch',
+                'students.phoneNumber',
+                'students.address',
+                'applications.intake',
+                'applications.checkin_date'
+            )
+            ->where('applications.id','=',$application->id)
+            ->get();
+        //dd($queryResult);
+
+        $allRooms = Room::all();
+
+
+        return view('admins.view_application', compact('queryResult', 'allRooms'));
+
+    }
+
+    public function updateApplication( Request $request)
+    {
+        dd($request->approve);
+    }
+
+
+   
 }
