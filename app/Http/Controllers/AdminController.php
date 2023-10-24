@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Student;
 use DB;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
@@ -101,38 +102,29 @@ class AdminController extends Controller
     }
 
     public function viewApplication(Application $application){
-        //dd($application->id);
 
-        $queryResult = DB::table('students')
-            ->join('applications', 'applications.student_id', '=', 'students.id')
-            ->select(
-                'applications.id',
-                'students.name',
-                'students.nric',
-                'students.studentID',
-                'students.program',
-                'students.batch',
-                'students.phoneNumber',
-                'students.address',
-                'applications.intake',
-                'applications.checkin_date'
-            )
-            ->where('applications.id','=',$application->id)
-            ->get();
-        //dd($queryResult);
-
-        $allRooms = Room::all();
-
-
-        return view('admins.view_application', compact('queryResult', 'allRooms'));
+        $rooms = Room::all();
+        $student = Student::find($application->student_id);
+        //dd($student);
+        return view('admins.view_application', compact('application', 'rooms', 'student'));
 
     }
 
-    public function updateApplication( Request $request)
-    {
-        dd($request->approve);
+    public function updateApplication(Request $request, Application $application){
+        //dd($application);
+        if(isset($request->approve)){
+            $application->update(['roomNumber' => $request->roomNumber, 'status' => 'APPROVED']);
+
+            return redirect('/admin/manage_applications');
+        }
+        else if(isset($request->reject)){
+            $application->update(['status' => 'REJECTED']);
+            return redirect('/admin/manage_applications');
+        }
+
+
     }
 
 
-   
+
 }

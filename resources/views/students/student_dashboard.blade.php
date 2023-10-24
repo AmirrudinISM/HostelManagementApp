@@ -34,7 +34,7 @@
                     <td>{{ $application->checkin_date }}</td>
                     <td>{{ $application->created_at }}</td>
                     <td>{{ $application->status }}</td>
-                    <td>{{ $application->room }}</td>
+                    <td>{{ $application->roomNumber }}</td>
                     <td><button class="btn btn-danger" ></button></td>
                     
                 </tr>

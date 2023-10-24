@@ -11,41 +11,82 @@
     <div class="d-flex justify-content-center my-5">
         <div class="card col-md-6">
             <div class="card-body">
-                <h5>View Application</h5>
+                <h5>View Application</h5><a class="float-end" href="{{ route('admin.manageApplications')}}">Back</a>
                 <label class="text-muted">Name:</label>
-                <p>{{ $queryResult[0]->name }}</p>
+                <p>{{ $student->name }}</p>
                 <label class="text-muted">Student ID:</label>
-                <p>{{ $queryResult[0]->studentID }}</p>
+                <p>{{ $student->studentID }}</p>
                 <label class="text-muted">Batch:</label>
-                <p>{{ $queryResult[0]->batch }}</p>
+                <p>{{ $student->batch }}</p>
                 <label class="text-muted">Program:</label>
-                <p>{{ $queryResult[0]->program }}</p>
+                <p>{{ $student->program }}</p>
 
                 <h5>Application Details</h5>
                 <label class="text-muted">Intake:</label>
-                <p>{{ $queryResult[0]->intake }}</p>
+                <p>{{ $application->intake }}</p>
                 <label class="text-muted">Checkin Date:</label>
-                <p>{{ $queryResult[0]->checkin_date }}</p>
+                <p>{{ $application->checkin_date }}</p>
                 <hr />
-                
-                <form action="{{ route('admin.updateApplication',['application' => $queryResult[0]->id]) }}" method="post">
+                <p>{{ $application->status }}</p>
+                <hr />
+                <form id="myForm" action="{{ route('admin.updateApplication',['application' => $application->id]) }}" method="post">
                     @method('put')
                     @csrf
                     <div>
                         <label class="text-muted">Select Room:</label>
-                        <select class="form-control" name="roomNumber">
-                            <option>--Select Room--</option>
-                            @foreach( $allRooms as $room )
+                        <select class="form-control" name="roomNumber" id="roomNumber">
+                            <option value="">--Select Room--</option>
+                            @foreach( $rooms as $room )
                                 <option value="{{ $room->roomNumber }}">{{ $room->roomNumber }}</option>
                             @endforeach
                         </select>
                     </div>
                     <br />
-                    <input class="btn btn-primary" type="submit" name="approve" value="approve" />
-                    <input class="btn btn-danger" type="submit" name="reject" value="reject" />
+                    <div>
+                        
+                        <input type="hidden" name="applicationID" value="{{ $application->id }}" />
+                        <button id="reject" class="mx-1 float-end btn btn-danger" type="submit" name="reject" value="reject">Reject</button>
+                        <button id="approve" class="mx-1 float-end btn" type="submit" name="approve" value="approve" disabled>Approve</button>
+                    </div>
+                    
+                    
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        // Get references to the dropdown and button elements
+        var dropdown = document.getElementById("roomNumber");
+        var button = document.getElementById("approve");
+
+        // Add an event listener to the dropdown to check when an option is selected
+        dropdown.addEventListener("change", function () {
+            // Check if a valid option is selected (value is not an empty string)
+            if (dropdown.value !== "") {
+                button.removeAttribute("disabled"); // Enable the button
+                button.classList.remove("btn-secondary");
+                button.classList.add("btn-primary");
+            } else {
+                button.setAttribute("disabled", "true"); // Disable the button
+                button.classList.remove("btn-primary")
+                button.classList.add("btn-secondary");
+            }
+        });
+        // Assuming you have a boolean variable to determine whether to hide the form
+        //var hideForm = ; // Change this to your desired boolean value
+
+        // Get a reference to the form element
+        var form = document.getElementById("myForm");
+
+        // Check the boolean value and hide or show the form accordingly
+
+        if ("{{ $application->status }}" == "APPROVED" || "{{ $application->status }}" == "REJECTED") {
+            form.style.display = "none"; // Hide the form
+        } else {
+            form.style.display = "block"; // Show the form
+        }
+
+    </script>
 </body>
 </html>
