@@ -16,4 +16,13 @@ class Application extends Model
         'checkout_date',
         'student_id'
     ];
+
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
+
+    public function room()
+    {
+        return $this->hasOne(Room::class);
+    }
 }

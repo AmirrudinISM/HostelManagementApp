@@ -97,7 +97,7 @@ class AdminController extends Controller
     }
 
     public function getApplications(){
-        $applications = Application::all();
+        $applications = Application::all()->sortByDesc('created_at');
         return view('admins.manage_applications', ['applications' => $applications]);
     }
 
@@ -123,6 +123,14 @@ class AdminController extends Controller
         }
 
 
+    }
+
+    public function checkoutStudent(Application $application)
+    {
+        //dd($application);
+        $application->update(['status' => 'CHECKED OUT']);
+
+        return redirect('/admin/manage_applications');
     }
 
 

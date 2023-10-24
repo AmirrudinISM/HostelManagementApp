@@ -7,14 +7,18 @@
 </head>
 <body>
     <div class="container-md">
-        <header>
-
-        </header>
         <h1>Student Dashboard</h1>
         <p>{{ Session::get('email') }}</p>
         <p>{{ Session::get('student_id') }}</p>
         <br />
-        <a href="/apply_hostel">Apply hostel</a>
+
+        @if($applications->isEmpty())
+            <a href="/apply_hostel">Apply hostel</a>
+        @elseif ($numberOfApprovedOrPendingRequest == 0)
+            <a href="/apply_hostel">Apply hostel</a>
+        @endif
+
+
         <br />
         <a href="/logout">Logout</a>
 
@@ -24,6 +28,7 @@
                     <th>Check-in Date</th>
                     <th>Submitted Date</th>
                     <th>Status</th>
+                    <th>Check-out Date</th>
                     <th>Room</th>
                     <th>Action</th>
                 </tr>
@@ -34,14 +39,15 @@
                     <td>{{ $application->checkin_date }}</td>
                     <td>{{ $application->created_at }}</td>
                     <td>{{ $application->status }}</td>
+                    <td>{{ $application->checkout_date }}</td>
                     <td>{{ $application->roomNumber }}</td>
-                    <td><button class="btn btn-danger" ></button></td>
-                    
+                    <td><button class="btn btn-danger"></button></td>
+
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    
+
 </body>
 </html>

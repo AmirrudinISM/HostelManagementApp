@@ -65,7 +65,14 @@ class StudentController extends Controller
 
     public function dashboard(Request $request){
         $applications = Application::where('student_id','=', Session::get('student_id'))->get();
-        return view('students.student_dashboard',['applications' => $applications]);
+        $numberOfApprovedOrPendingRequest = 0;
+        foreach ($applications as $application) {
+            if((in_array("APPROVED", $application->toArray()) || in_array("PENDING", $application->toArray()))){
+                $numberOfApprovedOrPendingRequest++;
+            }
+        }
+        //dd($applications);
+        return view('students.student_dashboard',compact('applications', 'numberOfApprovedOrPendingRequest'));
     }
 
     public function logout(){

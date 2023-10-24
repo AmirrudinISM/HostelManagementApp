@@ -38,3 +38,4 @@ Route::delete('/admin/manage_rooms/{room}/delete', [AdminController::class, 'del
 Route::get('/admin/manage_applications',[AdminController::class, 'getApplications'])->name('admin.manageApplications');
 Route::get('/admin/manage_applications/{application}', [AdminController::class, 'viewApplication'])->name('admin.viewApplication');
 Route::put('/admin/manage_applications/{application}/update', [AdminController::class, 'updateApplication'])->name('admin.updateApplication');
+Route::put('/admin/manage_applications/{application}/checkout', [AdminController::class, 'checkoutStudent'])->name('admin.checkoutStudent');

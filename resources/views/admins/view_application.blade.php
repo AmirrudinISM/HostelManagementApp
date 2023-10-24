@@ -29,6 +29,19 @@
                 <hr />
                 <p>{{ $application->status }}</p>
                 <hr />
+
+             
+                @if($application->status == "APPROVED")
+                    <form method="post" action="{{ route('admin.checkoutStudent',['application' => $application])}}">
+                    @method('put')
+                    @csrf
+                        <div>
+                            <button class="mx-1 float-end btn btn-danger" type="submit" name="checkout" value="checkout" >Checkout</button>
+                        </div>
+                    </form>
+                @endif
+                
+
                 <form id="myForm" action="{{ route('admin.updateApplication',['application' => $application->id]) }}" method="post">
                     @method('put')
                     @csrf
@@ -65,12 +78,10 @@
             // Check if a valid option is selected (value is not an empty string)
             if (dropdown.value !== "") {
                 button.removeAttribute("disabled"); // Enable the button
-                button.classList.remove("btn-secondary");
                 button.classList.add("btn-primary");
             } else {
                 button.setAttribute("disabled", "true"); // Disable the button
-                button.classList.remove("btn-primary")
-                button.classList.add("btn-secondary");
+                button.classList.remove("btn-primary");
             }
         });
         // Assuming you have a boolean variable to determine whether to hide the form
@@ -81,7 +92,7 @@
 
         // Check the boolean value and hide or show the form accordingly
 
-        if ("{{ $application->status }}" == "APPROVED" || "{{ $application->status }}" == "REJECTED") {
+        if ("{{ $application->status }}" == "APPROVED" || "{{ $application->status }}" == "REJECTED" || "{{ $application->status }}" == "CHECKED OUT") {
             form.style.display = "none"; // Hide the form
         } else {
             form.style.display = "block"; // Show the form

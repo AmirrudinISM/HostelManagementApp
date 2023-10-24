@@ -18,4 +18,8 @@ class Room extends Model
         'designation',
         'status'
     ];
+
+    public function applications(){
+        return $this->hasMany(Application::class);
+    }
 }
