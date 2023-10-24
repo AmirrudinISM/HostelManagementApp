@@ -39,8 +39,22 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        $applications = Application::all();
-        return view('admins.admin_dashboard', ['applications' => $applications]);
+        //$applications = Application::where('status',"APPROVED")->get();
+
+        $queryResult = DB::table('students')
+            ->join('applications', 'applications.student_id', '=', 'students.id')
+            ->select(
+                'students.name',
+                'students.studentID',
+                'students.program',
+                'applications.intake',
+                'applications.roomNumber',
+                'applications.id'
+            )
+            ->where('applications.status', '=', 'APPROVED')
+            ->get();
+        //dd($queryResult);
+        return view('admins.admin_dashboard', ['applications' => $queryResult]);
     }
 
     public function viewRooms(){

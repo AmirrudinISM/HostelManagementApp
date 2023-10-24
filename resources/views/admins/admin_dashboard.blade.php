@@ -15,7 +15,28 @@
         <a href="/admin/manage_rooms">Manage Rooms</a>
         <br />
         <a href="/admin/manage_applications">Manage Applications</a>
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Program</th>
+                    <th>Room</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($applications as $application)
+                <tr>
+                    <td>{{ $application->name }}</td>
+                    <td>{{ $application->studentID }}</td>
+                    <td>{{ $application->program }}</td>
+                    <td>{{ $application->roomNumber }}</td>
+                    <td><a href="{{ route('admin.viewApplication', ['application' => $application->id]) }}">View</a></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
         
     </div>
     

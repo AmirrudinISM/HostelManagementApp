@@ -13,6 +13,8 @@
         <a href="/logout">Logout</a>
         <br />
         <a href="/admin/manage_rooms">Manage Rooms</a>
+        <br />
+        <a href="{{route('admin.dashboard')}}">Home</a>
 
         <table class="table">
             <thead>
