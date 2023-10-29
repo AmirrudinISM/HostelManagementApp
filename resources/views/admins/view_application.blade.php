@@ -50,7 +50,9 @@
                         <select class="form-control" name="roomNumber" id="roomNumber">
                             <option value="">--Select Room--</option>
                             @foreach( $rooms as $room )
-                                <option value="{{ $room->roomNumber }}">{{ $room->roomNumber }}</option>
+                                @if( $room->approved_count !=  $room -> capacity)
+                                    <option value="{{ $room->roomNumber }}"> {{ $room->roomNumber }} | {{ $room->approved_count}}/{{ $room -> capacity}} </option>
+                                @endif
                             @endforeach
                         </select>
                     </div>

@@ -117,7 +117,23 @@ class AdminController extends Controller
 
     public function viewApplication(Application $application){
 
-        $rooms = Room::all();
+        //gets all rooms
+        $rooms = DB::table('rooms')
+            ->select('rooms.roomNumber', 'rooms.capacity', DB::raw('COUNT(applications.status) as approved_count'))
+            ->leftJoin('applications', function ($join) {
+                $join->on('rooms.roomNumber', '=', 'applications.roomNumber')
+                ->where('applications.status', '=', 'approved');
+            })
+            ->groupBy('rooms.roomNumber', 'rooms.capacity')
+            ->get();
+
+
+
+        //dd($rooms[0]->roomNumber);
+       
+        
+
+        //dd($counts);
         $student = Student::find($application->student_id);
         //dd($student);
         return view('admins.view_application', compact('application', 'rooms', 'student'));
