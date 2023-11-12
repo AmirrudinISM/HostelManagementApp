@@ -22,6 +22,7 @@
                     <th>Check-in Date</th>
                     <th>Submitted Date</th>
                     <th>Status</th>
+                    <th>Check-out Date</th>
                     <th>Room</th>
                     <th>Action</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{ $application->checkin_date }}</td>
                     <td>{{ $application->created_at }}</td>
                     <td>{{ $application->status }}</td>
+                    <td>{{ $application->checkout_date }}</td>
                     <td>{{ $application->roomNumber }}</td>
                     <td><a href="{{ route('admin.viewApplication', ['application' => $application]) }}">View</a></td>
                 </tr>

@@ -130,8 +130,8 @@ class AdminController extends Controller
 
 
         //dd($rooms[0]->roomNumber);
-       
-        
+
+
 
         //dd($counts);
         $student = Student::find($application->student_id);
@@ -158,7 +158,7 @@ class AdminController extends Controller
     public function checkoutStudent(Application $application)
     {
         //dd($application);
-        $application->update(['status' => 'CHECKED OUT']);
+        $application->update(['status' => 'CHECKED OUT', 'checkout_date' => date('Y-m-d H:i:s')]);
 
         return redirect('/admin/manage_applications');
     }
